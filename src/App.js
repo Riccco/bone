@@ -1,24 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useRef} from "react";
 
 function App() {
+  const boxRef = useRef(null);
+  function moveStart(){
+    console.log(boxRef.current.style.top)
+    window.document.onmousemove = function (event){
+    boxRef.current.style.left = event.clientX  + 'px'
+    boxRef.current.style.top = event.clientY + 'px'
+    }
+  }
+
+  function moveStop(){
+    window.document.onmousemove = null
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+          <div ref={boxRef} onMouseUp={moveStop} onMouseDown={moveStart} className="box"> </div>
     </div>
+
   );
 }
 
